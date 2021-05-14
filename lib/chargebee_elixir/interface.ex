@@ -69,6 +69,7 @@ defmodule ChargebeeElixir.Interface do
   end
 
   def transform_arrays_for_chargebee(data) do
+    IO.inspect data
     case data do
       map_data when is_map(map_data) ->
         map_data

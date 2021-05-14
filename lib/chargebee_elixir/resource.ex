@@ -1,4 +1,5 @@
 defmodule ChargebeeElixir.Resource do
+  require Logger
   defmacro __using__(resource) do
     quote do
       alias ChargebeeElixir.Interface
@@ -16,6 +17,8 @@ defmodule ChargebeeElixir.Resource do
       end
 
       def list(params) do
+        Logger.warn "gettign params"
+        IO.inspect params
         case Interface.get(resource_base_path(), params) do
           %{"list" => current_list, "next_offset" => next_offset} ->
             Enum.map(current_list, fn(hash) -> hash[@resource] end) ++ __MODULE__.list(Map.merge(params, %{"offset" => next_offset}))
